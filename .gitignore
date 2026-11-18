@@ -20,6 +20,7 @@ CoverageReport-*/
 test*.txt
 *.cov
 final_coverage/
+install/
 *.spv
 *.cso
 
