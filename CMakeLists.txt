@@ -45,5 +45,18 @@ include(InstallRequiredSystemLibraries)
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
+set(MESONLIB_GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
+set(MESONLIB_VERSION_CONFIG "${MESONLIB_GENERATED_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
+set(MESONLIB_PROJECT_CONFIG "${MESONLIB_GENERATED_DIR}/${PROJECT_NAME}Config.cmake")
+set(MESONLIB_TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
+set(MESONLIB_CONFIG_INSTALL_DIR "share/cmake/${PROJECT_NAME}")
+set(MESONLIB_NAMESPACE "Mesonlib::")
+set(MESONLIB_VERSION ${PROJECT_VERSION})
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  "${MESONLIB_VERSION_CONFIG}" VERSION ${MESONLIB_VERSION} COMPATIBILITY SameMajorVersion
+)
+
 # Inclua subprojetos.
 add_subdirectory("src")
