@@ -13,3 +13,5 @@ app = executable(
     install : true,
     install_dir : get_option('bindir')
 )
+
+cmake.export_target(target: app, namespace: 'MesonLib')

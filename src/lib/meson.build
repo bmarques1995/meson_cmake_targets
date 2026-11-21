@@ -1,3 +1,10 @@
+#pkg = import('pkgconfig')
+#bar_dep = dependency('bar')
+#lib = library('foo', dependencies : [bar])
+#pkg.generate(lib)
+
+cmake = import('cmake')
+
 sources = files(
     'code/Math.cc',
 )
@@ -32,3 +39,16 @@ install_headers(
     'code/Exporter.hh',
     subdir : 'mesonlib/code'
 )
+
+cmake = import('cmake')
+
+conf = configuration_data()
+conf.set_quoted('MESONLIB_TARGETS_EXPORT_NAME', 'MesonLibTargets')
+
+cmake.configure_package_config_file(
+    name: 'MesonLib',
+    input: 'cmake/config.meson.cmake.in',
+    configuration: conf
+)
+
+cmake.export_target(target: lib, namespace: 'MesonLib')

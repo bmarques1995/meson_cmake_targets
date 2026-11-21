@@ -1,5 +1,5 @@
 project(
-    'minha_lib',
+    'MesonLib',
     'cpp',
     version : '0.0.1',
     default_options : [
@@ -8,6 +8,11 @@ project(
         'default_library=shared'
     ]
 )
+
+cmake = import('cmake')
+
+project_name = 'MesonLib'
+project_version = '0.0.1'
 
 library_type = get_option('library_type')
 
@@ -36,5 +41,7 @@ else
         '-DMESON_LIB_UNIX',
     ]
 endif
+
+cmake.write_basic_package_version_file(name: meson.project_name(), version: meson.project_version())
 
 subdir('src')
