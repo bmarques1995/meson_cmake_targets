@@ -1,4 +1,5 @@
 #include "Math.hh"
+#include "Log.hh"
 #include <iostream>
 
 int main(int argc, char** argv)
@@ -7,5 +8,6 @@ int main(int argc, char** argv)
 	MesonExport::Math::Multiply(5.0, 3.0, &result);
 
 	std::cout << "Result: " << result << "\n";
+	MesonExport::Log::SampleSymbol();
 	return 0;
 }
