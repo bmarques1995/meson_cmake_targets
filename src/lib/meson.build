@@ -30,7 +30,11 @@ else
     shared_install_dir = get_option('libdir')
 endif
 
+export_list = []
+export_log_list = []
 if library_type == 'shared'
+    export_list = meson_lib_public_args + meson_lib_public_shared_args
+    export_log_list = meson_log_public_args + meson_log_public_shared_args 
     lib = shared_library(
         'mesonlib',
         sources,
@@ -49,6 +53,8 @@ if library_type == 'shared'
         install : true
     )
 else
+    export_list = meson_lib_public_args
+    export_log_list = meson_log_public_args
     lib = static_library(
         'mesonlib',
         sources,
@@ -91,9 +97,9 @@ cmake.export_target(
     target: lib,
     namespace: 'MesonLib',
     target_info: {
-        'interface_include_dirs': ['include'],
-        'interface_compile_defs': ['MY_LIBRARY'],
-        'interface_compile_opts': ['-Wall'],
+        'interface_include_dirs': ['include/mesonlib/code'],
+        'interface_compile_defs': export_list,
+        'interface_compile_opts': [],
         'interface_link_opts': [],
         'interface_link_libraries': [],
     }
@@ -103,9 +109,9 @@ cmake.export_target(
     target: lib_log,
     namespace: 'MesonLib',
     target_info: {
-        'interface_include_dirs': ['include'],
-        'interface_compile_defs': ['MY_LIBRARY'],
-        'interface_compile_opts': ['-Wall'],
+        'interface_include_dirs': ['include/mesonlib/code2'],
+        'interface_compile_defs': export_log_list,
+        'interface_compile_opts': [],
         'interface_link_opts': [],
         'interface_link_libraries': [],
         'interface_internal_dependencies': ['MesonLib::mesonlib']
