@@ -24,29 +24,23 @@ inc_dirs_log = include_directories(
     'src/lib/code2',
 )
 
-meson_lib_public_shared_args = []
 meson_lib_public_args = []
 meson_lib_private_args = []
-meson_lib_private_shared_args = []
-meson_log_public_shared_args = []
 meson_log_public_args = []
 meson_log_private_args = []
-meson_log_private_shared_args = []
 
-if library_type == 'shared'
-    meson_lib_public_shared_args += [
-        '-DMESON_LIB_SHARED',
-    ]
-    meson_lib_private_shared_args += [
-        '-DMESON_LIB_EXPORTS'
-    ]
-    meson_log_public_shared_args += [
-        '-DMESON_LOG_SHARED',
-    ]
-    meson_log_private_shared_args += [
-        '-DMESON_LOG_EXPORTS'
-    ]
-endif
+meson_lib_public_shared_args = [
+    '-DMESON_LIB_SHARED',
+]
+meson_lib_private_shared_args = [
+    '-DMESON_LIB_EXPORTS'
+]
+meson_log_public_shared_args = [
+    '-DMESON_LOG_SHARED',
+]
+meson_log_private_shared_args = [
+    '-DMESON_LOG_EXPORTS'
+]
 
 if host_machine.system() == 'windows'
     meson_lib_public_args += [
@@ -56,10 +50,10 @@ if host_machine.system() == 'windows'
         '-DMESON_LOG_WINDOWS',
     ]
 else
-    cpp_public_args += [
+    meson_lib_public_args += [
         '-DMESON_LIB_UNIX',
     ]
-    cpp_public_args += [
+    meson_lib_public_args += [
         '-DMESON_LOG_UNIX',
     ]
 endif

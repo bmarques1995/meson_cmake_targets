@@ -66,7 +66,7 @@ if library_type == 'both'
     lib_log = both_libraries(
         'mesonlog',
         sources_log,
-        include_directories : inc_dirs_log,
+        include_directories : inc_dirs_both,
         link_with: lib,
         cpp_static_args : meson_log_public_args + meson_log_private_args,
         cpp_shared_args : meson_log_public_args + meson_log_private_args + meson_log_public_shared_args + meson_log_private_shared_args,
