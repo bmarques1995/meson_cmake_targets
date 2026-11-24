@@ -1,7 +1,7 @@
 option(
     'library_type',
     type : 'combo',
-    choices : ['shared', 'static'],
+    choices : ['shared', 'static', 'both'],
     value : 'shared',
     description : 'Tipo da biblioteca'
 )
