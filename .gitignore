@@ -1,6 +1,7 @@
 .vs/
 .vscode/
 out/
+build/
 [Ww]indows/
 [Ll]inux/
 [Oo]SX/

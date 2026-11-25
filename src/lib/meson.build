@@ -19,9 +19,15 @@ sources_log = files(
     'code2/Log.cc',
 )
 
-inc_dirs_both = [
+inc_dirs_lib_log = [
     inc_dirs,
     inc_dirs_log,
+]
+
+inc_dirs_all = [
+    inc_dirs,
+    inc_dirs_log,
+    inc_dirs_mod,
 ]
 
 target_info = {}
@@ -38,15 +44,6 @@ install_headers(
     'code2/Log.hh',
     'code2/Exporter.hh',
     subdir : 'mesonlib/code2'
-)
-
-conf = configuration_data()
-conf.set_quoted('MESONLIB_TARGETS_EXPORT_NAME', 'MesonLibTargets')
-
-cmake.configure_package_config_file(
-    name: 'MesonLib',
-    input: 'cmake/config.meson.cmake.in',
-    configuration: conf
 )
 
 if library_type == 'both'
@@ -66,7 +63,7 @@ if library_type == 'both'
     lib_log = both_libraries(
         'mesonlog',
         sources_log,
-        include_directories : inc_dirs_both,
+        include_directories : inc_dirs_lib_log,
         link_with: lib,
         cpp_static_args : meson_log_public_args + meson_log_private_args,
         cpp_shared_args : meson_log_public_args + meson_log_private_args + meson_log_public_shared_args + meson_log_private_shared_args,
@@ -152,7 +149,7 @@ else
         lib_log = shared_library(
             'mesonlog',
             sources_log,
-            include_directories : inc_dirs_both,
+            include_directories : inc_dirs_lib_log,
             cpp_args : meson_log_public_args + meson_log_public_shared_args + meson_log_private_args + meson_log_private_shared_args,
             #install_dir : shared_install_dir,
             link_with: lib,
@@ -224,3 +221,29 @@ else
         target_info: target_log_info
     )
 endif
+
+lib_mod = shared_module(
+    'mesonmod',
+    files(
+        'module/Hello.cc',
+    ),
+    include_directories : inc_dirs_all,
+    cpp_args : meson_mod_public_args + meson_mod_private_args,
+    install : true,
+    link_with: lib_log,
+)
+
+target_mod_info = {
+    'interface_include_dirs': ['include/mesonlib/module'],
+    'interface_compile_defs': meson_mod_public_args,
+    'interface_compile_opts': [],
+    'interface_link_opts': [],
+    'interface_link_libraries': [],
+    'interface_internal_dependencies': ['MesonLib::mesonlog']
+}
+
+cmake.export_target(
+    target: lib_mod,
+    namespace: 'MesonLib',
+    target_info: target_mod_info
+)

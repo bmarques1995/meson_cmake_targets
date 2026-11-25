@@ -58,5 +58,17 @@ write_basic_package_version_file(
   "${MESONLIB_VERSION_CONFIG}" VERSION ${MESONLIB_VERSION} COMPATIBILITY SameMajorVersion
 )
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake.in" "${MESONLIB_PROJECT_CONFIG}" @ONLY)
+
+# Install cmake config files
+install(
+  FILES "${MESONLIB_PROJECT_CONFIG}" "${MESONLIB_VERSION_CONFIG}"
+  DESTINATION "${MESONLIB_CONFIG_INSTALL_DIR}")
+
+install(
+  EXPORT "${MESONLIB_TARGETS_EXPORT_NAME}"
+  NAMESPACE "${MESONLIB_NAMESPACE}"
+  DESTINATION "${MESONLIB_CONFIG_INSTALL_DIR}")
+
 # Inclua subprojetos.
 add_subdirectory("src")
