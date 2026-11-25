@@ -137,7 +137,7 @@ else
     if library_type == 'shared'
         message('Shared target')
         export_list = meson_lib_public_args + meson_lib_public_shared_args
-        export_log_list = meson_log_public_args + meson_log_public_shared_args 
+        export_log_list = meson_log_public_args + meson_log_public_shared_args
         #install_dir : shared_install_dir,
         lib = shared_library(
             'mesonlib',

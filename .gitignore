@@ -1,7 +1,7 @@
 .vs/
 .vscode/
 out/
-build/
+build*/
 [Ww]indows/
 [Ll]inux/
 [Oo]SX/
@@ -21,7 +21,7 @@ CoverageReport-*/
 test*.txt
 *.cov
 final_coverage/
-install/
+install*/
 *.spv
 *.cso
 

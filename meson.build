@@ -48,7 +48,7 @@ meson_log_private_shared_args = [
 
 meson_mod_public_args = []
 meson_mod_private_args = [
-    '-DMESON_LIB_EXPORTS'
+    '-DMESON_MOD_EXPORTS'
 ]
 
 if host_machine.system() == 'windows'
@@ -65,7 +65,7 @@ else
     meson_lib_public_args += [
         '-DMESON_LIB_UNIX',
     ]
-    meson_lib_public_args += [
+    meson_log_public_args += [
         '-DMESON_LOG_UNIX',
     ]
     meson_mod_public_args += [
