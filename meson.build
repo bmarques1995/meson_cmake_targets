@@ -73,7 +73,11 @@ else
     ]
 endif
 
-cmake.write_basic_package_version_file(name: meson.project_name(), version: meson.project_version())
+cmake.write_basic_package_version_file(
+    name: meson.project_name(),
+    version: meson.project_version(),
+    install_dir: 'share/cmake/'+meson.project_name()
+)
 
 conf = configuration_data()
 conf.set('MESONLIB_TARGETS_EXPORT_NAME', 'MesonLibTargets')
@@ -81,7 +85,12 @@ conf.set('MESONLIB_TARGETS_EXPORT_NAME', 'MesonLibTargets')
 cmake.configure_package_config_file(
     name: 'MesonLib',
     input: 'cmake/config.cmake.in',
-    configuration: conf
+    configuration: conf,
+    install_dir: 'share/cmake/'+meson.project_name()
+)
+
+cmake.set_export_target_install_dir(
+    install_infix: 'share'
 )
 
 subdir('src')
